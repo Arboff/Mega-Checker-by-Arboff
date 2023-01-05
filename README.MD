@@ -55,7 +55,7 @@ Recompiled .exe
 ```
 
 
-## 1.2
+## 1.3
 
 ```bash
 Fixed a bug where it will count +2 on each hit
