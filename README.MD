@@ -53,3 +53,22 @@ Added TRUE/FALSE keyword flag on hits
 Visual Improvements.
 Recompiled .exe
 ```
+
+
+## 1.2
+
+```bash
+Fixed a bug where it will count +2 on each hit
+
+Added More information on Hits
+
+Added more info on hits string in file
+
+Added a finish discord webhook message
+
+Added more information on nav bar
+
+Recompiled .exe
+
+Upload Icon
+```
