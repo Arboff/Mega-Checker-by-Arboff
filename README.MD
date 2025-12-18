@@ -2,7 +2,7 @@
 
 # Mega.nz Account Checker by Arboff.
 ![alt text](https://i.imgur.com/hX1cORt.png)
-![alt text](https://i.imgur.com/4jA4HH3.png)
+
 
 
 Proxyless Mega.nz account checker using the Mega.py library. All hits get storage capture and saved to a seperate txt file. Also, supports discord webhook integration.
